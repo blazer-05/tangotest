@@ -5,7 +5,7 @@ import urllib, urllib2
 
 # Добавьте Ваш Bing API ключ в BING_API_KEY
 
-BING_API_KEY = 'kBtNFkciZXxeej2CPL42t/tjLt4SnETmf5dvvYJZw1c'
+BING_API_KEY = ''
 
 def run_query(search_terms):
     # Определяем основную часть URL адреса
