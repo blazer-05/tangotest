@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ category_name }}{% endblock %}
+
+{% block body_block %}
+    <div class="page-header">
+    <h1>{{ category_name }}</h1>
+    </div>
+
+        {% if category %}
+        <!-- Like button -->
+        <p>
+        <strong id="like_count">{{ category.likes }}</strong> people like this category
+
+        {% if user.is_authenticated %}
+                <button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">Like</button>
+        {% endif %}
+        </p>
+        <br />
+            <!-- Pages -->
+            {% if pages %}
+            <ul>
+                {% for page in pages %}
+                        <li><a href="{% url 'track_url' %}?page_id={{page.id}}" target="_blank">{{ page.title }}</a></li> <!-- track_url - Имя функции! -->
+                        {% if page.views > 1 %}
+                        ({{ page.views }} views)
+                        {% elif page.views == 1 %}
+                        ({{ page.views }} view)
+                        {% endif %}
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>No pages currently in category.</strong>
+                <br />
+                <br />
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'add_page' category.slug %}" class="btn btn-sm btn-success">Add a Page</a>
+                {% endif %}
+        {% endif %}
+            {% else %}
+            The specified category {{ category_name }} does not exist!
+        {% endif %}
+
+
+
+    <div class="hero-unit">
+        <h2>Search with Rango</h2>
+    </div>
+
+    <div class="row">
+
+          {% if user.is_authenticated %}
+            <form class="form-inline" id="user_form" method="post" action="{% url 'category' category.slug %}">
+                {% csrf_token %}
+                <!-- Отображаем элементы поисковой формы здесь -->
+                <input class="form-control" type="text" size="50" name="query" value="{{ query }}" id="query" />
+                <input class="btn btn-primary" type="submit" name="submit" value="Поиск" />
+            </form>
+              {% else %}
+              <div align="left">Только <a href="{% url 'registration_register' %}">зарегистрированые</a> пользователи могут осуществлять поиск!</div>
+          {% endif %}
+
+
+                {% if result_list %}
+                    <div class="panel-heading">
+                    <h3 class="panel-title">Results</h3>
+                    <!-- Отображаем результаты поиска в виде упорядоченного списка -->
+                    <div class="panel-body">
+                        <div class="list-group">
+                            {% for result in result_list %}
+                                <div class="list-group-item">
+{#                                    <h4 class="list-group-item-heading"><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></h4>#}
+                                    {% if user.is_authenticated %}
+                                            <button data-catid="{{category.id}}" data-title="{{ result.title }}" data-url="{{ result.link }}" class="rango-add btn btn-mini btn-info" type="button">Add</button>
+                                    {% endif %}
+                                    <strong><a href="{{ result.link }}">{{ result.title }}</a></strong><br />
+
+                                    <p class="list-group-item-text">{{ result.summary }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<h1>Теги</h1>
+<ul>
+
+{% for tag in tag %}
+    <li>{{ tag.title }}</li>
+{% endfor %}
+
+</ul>

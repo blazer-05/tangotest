@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+
+   {% block title %} О сайте {% endblock %}
+
+{% block body_block %}
+<div class="row">
+
+        <div class="page-header">
+                <h1>О нашем сайте!</h1>
+        Страница: {{ about }}
+        </div>
+           <div>
+            <p><a href="/">Главная</a></p>
+
+            <img src="{% static "rango/images/rango-film-review.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
+           </div>
+       <button onClick="alert('You clicked the button using Javascript.');">
+       Click Me - I run Javascript
+       </button>
+<br>
+<button id="about-btn"> Click Me - I'm Javascript on Speed</button>
+
+<p>This is a example</p>
+
+<p>This is another example</p>
+
+<div id="msg">Hello</div>
+
+</div>
+{% endblock %}

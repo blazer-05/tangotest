@@ -1,0 +1,23 @@
+    {% extends "base.html" %}
+    {% load staticfiles %}
+
+
+    {% block title %}Add Category{% endblock %}
+
+    {% block body_block %}
+
+        <form id="category_form" method="post" action="{% url "add_category" %}">
+
+            <h1 class="form-signin-heading"><strong>Add a Category</strong></h1>
+
+            {% csrf_token %}
+
+            {{ form }}
+
+            <br/>
+
+            <button class="btn btn-primary" type="submit" name="submit">Create Category</button>
+
+        </form>
+
+    {% endblock %}

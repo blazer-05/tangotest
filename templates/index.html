@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% block body_block %}
+<h2>Я главная страница сайта!</h2>
+<a href="/rango/">Rango</a><br><br>
+<img src="{% static "rango/images/rango_6.jpg" %}" alt="Picture of Rango" /><br>
+{% endblock %}
